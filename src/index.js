@@ -4,9 +4,10 @@ const { create } = require('express-handlebars');
 const todoRoute = require('../routes/todo');
 const mongoose = require('mongoose');
 require("dotenv").config();
+const cssHelper = require('../utils/util')
 
 // Handlebarsni o'rnatish
-const hbs = create({ defaultLayout: "main", extname: ".hbs" });
+const hbs = create({ defaultLayout: "main", extname: ".hbs", helpers: cssHelper });
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 app.set('views', './views'); 

@@ -18,22 +18,19 @@
         {{#if todos.length}}
           {{#each todos}}
             <!-- Tasks will be added here dynamically -->
-            <li
-              class="list-inline-item bg-white py-3 px-2 d-flex align-items-center justify-content-between border rounded position-relative my-1"
-            >
+            <li class="list-inline-item bg-white py-3 px-2 d-flex align-items-center justify-content-between border rounded position-relative my-1">
               <div class="d-flex gap-2 align-items-center pt-2 pl-4">
-                <p> {{todo}}</p>
+                <!-- Apply 'text-decoration-line-through' class if 'complated' is true -->
+                {{#if complated}}
+                  <p class="text-decoration-line-through text-primary">{{todo}}</p>
+                {{else}}
+                  <p class="text-danger">{{todo}}</p>
+                {{/if}}
               </div>
-              <div class="btns">
-                <a href="/edit-todo/{{_id}}" class="btn btn-outline-secondary"><i
-                    class="fas fa-edit"
-                  ></i>
-                </a>
+              <div class="btns d-flex">
+                <a href="/edit-todo/{{_id}}" class="p-1 text-dark"><i class="fas fa-edit"></i></a>
                 <form action="delete-todo/{{_id}}" method="post">
-                  <button type="submit" class="btn btn-outline-danger"><i
-                      class="fas fa-trash-alt"
-                    ></i>
-                  </button>
+                  <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                 </form>
               </div>
             </li>

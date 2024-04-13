@@ -34,11 +34,18 @@ router.get('/edit-todo/:id', async (req, res) => {
 
 router.post('/edit-todo/:id', async (req, res) => {
     const id = req.params.id;
-    const todo = await Todo.findByIdAndUpdate(id, req.body, { new: true }).lean();
-    await todo.save();
+    const { todo, complated } = req.body; // Changed from "completed" to "complated"
 
-    res.redirect('/');
+    try {
+        await Todo.findByIdAndUpdate(id, { todo, complated: complated === 'on' }, { new: true }); // Convert "complated" to boolean
+        res.redirect('/'); // Redirect to the home page or wherever appropriate
+    } catch (error) {
+        console.error("Error updating todo:", error);
+        // Handle error appropriately, e.g., render an error page
+        res.status(500).send("Error updating todo");
+    }
 });
+
 
 
 module.exports = router;
